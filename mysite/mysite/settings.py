@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'frontend',
-    
-    'shoppapp.apps.ShoppappConfig',
 
+    'frontend',
+    'rest_framework',
+
+    'catalogapp.apps.CatalogappConfig',
+    'productapp.apps.ProductappConfig',
+    'usersapp.apps.UsersappConfig',
+    'basketapp.apps.BasketappConfig',
+    'orderapp.apps.OrderappConfig',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +126,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'uploaded_files'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+
+CART_SESSION_ID = 'cart'
