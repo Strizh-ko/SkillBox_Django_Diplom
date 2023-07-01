@@ -26,12 +26,21 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user_groups" active-filter-id="" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.orderapp_quantityproductsinbasket" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user_user_permissions" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.django_migrations" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.orderapp_order_products" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_group_permissions" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.shoppapp_category" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.shoppapp_product" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.django_admin_log" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user_groups" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.sqlite_sequence" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.usersapp_avataruser" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.orderapp_order" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.usersapp_profileuser" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_permission" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -137,7 +146,7 @@
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="3.41" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
