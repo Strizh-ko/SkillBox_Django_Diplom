@@ -38,6 +38,7 @@
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_user_groups" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.sqlite_sequence" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.usersapp_avataruser" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.catalogapp_category" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.orderapp_order" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.usersapp_profileuser" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dd56ee49-2cc0-46c5-ae34-744b6b5cbf09" dataset="main.auth_permission" active-filter-id="" />

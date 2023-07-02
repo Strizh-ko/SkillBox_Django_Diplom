@@ -10,7 +10,7 @@ from .utils import main_filter
 
 
 class CategoryListApiView(ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(parent=None)
     serializer_class = CategorySerializer
 
     def get(self, request: Request, *args, **kwargs) -> Response:
