@@ -20,13 +20,15 @@ class CategoryListApiView(ListAPIView):
 
 
 class BannersListApiView(ListAPIView):
-    queryset: Product = Product.objects.prefetch_related(
-        'review',
-        'product_img',
-        'tags',
-    ).select_related(
-        'category'
-    ).filter(category__main=True)
+    queryset: Product = (
+        Product.objects.prefetch_related(
+            "review",
+            "product_img",
+            "tags",
+        )
+        .select_related("category")
+        .filter(category__main=True)
+    )
     serializer_class = ShortInfoProductSerializer
 
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -37,12 +39,6 @@ class BannersListApiView(ListAPIView):
 
 class CatalogApiView(APIView):
     def get(self, request: Request) -> Response:
-        return Response({'items': ShortInfoProductSerializer(main_filter(request), many=True).data})
-
-
-
-
-
-
-
-
+        return Response(
+            {"items": ShortInfoProductSerializer(main_filter(request), many=True).data}
+        )

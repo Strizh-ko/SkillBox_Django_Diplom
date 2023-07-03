@@ -21,15 +21,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path("", include("frontend.urls")),
-    path('admin/', admin.site.urls),
-    path('', include('catalogapp.urls')),
-    path('', include('productapp.urls')),
-    path('', include('usersapp.urls')),
-    path('', include('basketapp.urls')),
-    path('', include('orderapp.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("catalogapp.urls")),
+    path("", include("productapp.urls")),
+    path("", include("usersapp.urls")),
+    path("", include("basketapp.urls")),
+    path("", include("orderapp.urls")),
 ]
 
 if settings.DEBUG:
-    urlpatterns.extend(
-        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    )
+    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

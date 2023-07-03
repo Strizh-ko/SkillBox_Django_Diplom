@@ -12,23 +12,22 @@ class AuthUserSerializer(serializers.Serializer):
 
     def validate(self, data):
         user = authenticate(
-            username=data.get('username', ''),
-            password=data.get('password', '')
+            username=data.get("username", ""), password=data.get("password", "")
         )
         if not user:
-            raise ValidationError('Неправильный логин или пароль.')
+            raise ValidationError("Неправильный логин или пароль.")
         return user
 
 
 class UserSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='first_name')
+    name = serializers.CharField(source="first_name")
 
     class Meta:
         model = User
         fields = (
-            'name',
-            'username',
-            'password',
+            "name",
+            "username",
+            "password",
         )
 
 
@@ -36,8 +35,8 @@ class AvatarUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AvatarUser
         fields = (
-            'src',
-            'alt',
+            "src",
+            "alt",
         )
 
 
@@ -47,10 +46,10 @@ class ProfileUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileUser
         fields = (
-            'fullName',
-            'email',
-            'phone',
-            'avatar',
+            "fullName",
+            "email",
+            "phone",
+            "avatar",
         )
 
 
@@ -59,19 +58,21 @@ class ChangePasswordUserSerializer(serializers.Serializer):
     newPassword = serializers.CharField()
 
     def validate(self, data):
-        validate_password_user(password=data.get('newPassword'))
+        validate_password_user(password=data.get("newPassword"))
 
-        if data.get('newPassword') == data.get('currentPassword', ''):
-            raise ValidationError('Пароли совпадают.')
+        if data.get("newPassword") == data.get("currentPassword", ""):
+            raise ValidationError("Пароли совпадают.")
 
-        user = authenticate(username=self.context.get('request').user.username,
-                            password=data.get('currentPassword', ''))
+        user = authenticate(
+            username=self.context.get("request").user.username,
+            password=data.get("currentPassword", ""),
+        )
         if not user:
-            raise ValidationError('Неверный пароль.')
+            raise ValidationError("Неверный пароль.")
         return data
 
     def save(self, **kwargs):
-        user = self.context.get('request').user
-        user.set_password(self.validated_data.get('newPassword'))
+        user = self.context.get("request").user
+        user.set_password(self.validated_data.get("newPassword"))
         user.save()
-        update_session_auth_hash(self.context.get('request'), user)
+        update_session_auth_hash(self.context.get("request"), user)

@@ -9,9 +9,15 @@ from usersapp.models import ProfileUser
 from .models import Order
 from .serializers import OrderSerializer
 from .utils import (
-    get_order_user_or_400, get_detail_order_data, get_detail_payment_data,
-    save_number_products_in_basket, setup_order, setup_count_products_in_basket,
-    remove_goods_from_warehouse, check_delivery_type_and_price_setting, validation_all_data
+    get_order_user_or_400,
+    get_detail_order_data,
+    get_detail_payment_data,
+    save_number_products_in_basket,
+    setup_order,
+    setup_count_products_in_basket,
+    remove_goods_from_warehouse,
+    check_delivery_type_and_price_setting,
+    validation_all_data,
 )
 
 
@@ -19,20 +25,25 @@ class OrderApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request):
-        return Response(OrderSerializer(Order.objects.filter(user_profile=request.user.pk), many=True).data)
+        return Response(
+            OrderSerializer(
+                Order.objects.filter(user_profile=request.user.pk), many=True
+            ).data
+        )
 
     def post(self, request: Request):
         bk = Basket(request)
 
-        products = Product.objects.prefetch_related(
-            'review', 'product_img', 'tags').select_related('category').filter(
-            id__in=[product.get('id', 0) for product in request.data]
+        products = (
+            Product.objects.prefetch_related("review", "product_img", "tags")
+            .select_related("category")
+            .filter(id__in=[product.get("id", 0) for product in request.data])
         )
 
         order = Order.objects.create(
             user_profile=ProfileUser.objects.get(id=request.user.pk),
             totalCost=bk.get_total_price(),
-            status='unconfirmed'
+            status="unconfirmed",
         )
 
         order.products.set(products)
@@ -65,11 +76,11 @@ class PaymentApiView(APIView):
         order = get_order_user_or_400(request=request, pk=pk, payment=True)
         bk = Basket(request)
         number_card, name, month, year, code = get_detail_payment_data(request.data)
-        validation_all_data(name=name, number='54789342', month=month, year=year, code=code)
-        order.status = 'accepted'
+        validation_all_data(
+            name=name, number="54789342", month=month, year=year, code=code
+        )
+        order.status = "accepted"
         remove_goods_from_warehouse(order=order, bk=bk)
         order.save()
         bk.clear()
         return Response(status=status.HTTP_200_OK)
-
-

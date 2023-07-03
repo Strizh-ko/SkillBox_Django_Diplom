@@ -3,10 +3,24 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
-from .serializers import ProfileUserSerializer, UserSerializer, AuthUserSerializer, ChangePasswordUserSerializer
-from .utils import (get_classic_dict, get_data_new_user, get_update_user_data, validate_fullname_user,
-                    validate_phone_user, validate_all_new_user_data, check_email_user_exists,
-                    validate_file, create_new_user,  create_profile_new_user)
+from .serializers import (
+    ProfileUserSerializer,
+    UserSerializer,
+    AuthUserSerializer,
+    ChangePasswordUserSerializer,
+)
+from .utils import (
+    get_classic_dict,
+    get_data_new_user,
+    get_update_user_data,
+    validate_fullname_user,
+    validate_phone_user,
+    validate_all_new_user_data,
+    check_email_user_exists,
+    validate_file,
+    create_new_user,
+    create_profile_new_user,
+)
 
 from .models import ProfileUser, AvatarUser
 from django.contrib.auth.views import LogoutView
@@ -15,7 +29,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class ProfileUserLogoutView(LogoutView):
-    next_page = reverse_lazy('usersapp:sign-in')
+    next_page = reverse_lazy("usersapp:sign-in")
 
 
 class SignInApiView(APIView):
@@ -32,11 +46,17 @@ class ProfileDetailUpdateApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request) -> Response:
-        return Response(ProfileUserSerializer(ProfileUser.objects.get(user_id=request.user.pk), many=False).data)
+        return Response(
+            ProfileUserSerializer(
+                ProfileUser.objects.get(user_id=request.user.pk), many=False
+            ).data
+        )
 
     def post(self, request: Request) -> Response:
         profile_user = ProfileUser.objects.get(user=request.user.pk)
-        fullname_user_update, phone_user_update, email_user = get_update_user_data(data=request.data, user=profile_user)
+        fullname_user_update, phone_user_update, email_user = get_update_user_data(
+            data=request.data, user=profile_user
+        )
 
         validate_fullname_user(fullname=fullname_user_update)
         profile_user.fullName = fullname_user_update
@@ -55,10 +75,12 @@ class AvatarUserCreateOrUpdateApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request: Request) -> Response:
-        new_avatar_user = request.data.get('avatar')
+        new_avatar_user = request.data.get("avatar")
 
         validate_file(namefile=new_avatar_user.name, size=new_avatar_user.size)
-        current_avatar_user, _ = AvatarUser.objects.get_or_create(profile_id=request.user.pk)
+        current_avatar_user, _ = AvatarUser.objects.get_or_create(
+            profile_id=request.user.pk
+        )
         # current_avatar_user, _ = AvatarUser.objects.get_or_create(profile_id=request.user.id)
 
         current_avatar_user.avatar = new_avatar_user
@@ -74,9 +96,15 @@ class UserSignUpApiView(APIView):
         user_serializer = UserSerializer(data=clear_name_login_psw_dict)
 
         if user_serializer.is_valid():
-            name, surname, patronymic, login_user, psw_user = get_data_new_user(user_serializer.validated_data)
-            user = create_new_user(name=name, surname=surname, login_user=login_user, psw_user=psw_user)
-            create_profile_new_user(new_user=user, name=name, surname=surname, patronymic=patronymic)
+            name, surname, patronymic, login_user, psw_user = get_data_new_user(
+                user_serializer.validated_data
+            )
+            user = create_new_user(
+                name=name, surname=surname, login_user=login_user, psw_user=psw_user
+            )
+            create_profile_new_user(
+                new_user=user, name=name, surname=surname, patronymic=patronymic
+            )
             current_user = authenticate(username=login_user, password=psw_user)
             if current_user:
                 login(request, current_user)
@@ -89,10 +117,9 @@ class ChangePasswordUserApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request: Request) -> Response:
-        password_serializer = ChangePasswordUserSerializer(data=request.data,
-                                                           context={'request': request}
-                                                           )
+        password_serializer = ChangePasswordUserSerializer(
+            data=request.data, context={"request": request}
+        )
         password_serializer.is_valid(raise_exception=True)
         password_serializer.save()
         return Response(status.HTTP_200_OK)
-
