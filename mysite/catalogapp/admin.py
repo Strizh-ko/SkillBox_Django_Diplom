@@ -9,14 +9,14 @@ class CategoryInline(admin.StackedInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     inlines = [CategoryInline]
-    list_display = ('pk', 'title', 'parent', 'main')
-    list_display_links = ('pk', 'title')
-    list_editable = ('main',)
-    ordering = ('pk',)
+    list_display = ("pk", "title", "parent", "main")
+    list_display_links = ("pk", "title")
+    list_editable = ("main",)
+    ordering = ("pk",)
 
 
 @admin.register(ImageCategory)
 class ImageCategoryAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'image', 'category')
-    list_display_links = ('pk',)
-    ordering = ('pk',)
+    list_display = ("pk", "image", "category")
+    list_display_links = ("pk",)
+    ordering = ("pk",)

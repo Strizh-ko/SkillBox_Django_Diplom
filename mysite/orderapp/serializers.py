@@ -14,16 +14,24 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'createdAt', 'fullName', 'email',
-                  'phone', 'deliveryType', 'paymentType', 'totalCost',
-                  'status', 'city', 'address', 'products', 'orderId')
+        fields = (
+            "id",
+            "createdAt",
+            "fullName",
+            "email",
+            "phone",
+            "deliveryType",
+            "paymentType",
+            "totalCost",
+            "status",
+            "city",
+            "address",
+            "products",
+            "orderId",
+        )
 
     def get_createdAt(self, instance: Order) -> str:
         return get_nice_data(date=instance.createdAt)
 
     def get_orderId(self, instance: Order) -> Order.pk:
         return instance.pk
-
-
-
-

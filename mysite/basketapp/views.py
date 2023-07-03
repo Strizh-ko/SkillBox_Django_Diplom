@@ -13,12 +13,16 @@ class BasketApiView(APIView):
 
     def post(self, request: Request) -> Response:
         bk = Basket(request)
-        product = get_object_or_404(Product, id=request.data.get('id', 0))
-        bk.add(product, count=check_user_input_count(request.data, product=product, bk=bk))
+        product = get_object_or_404(Product, id=request.data.get("id", 0))
+        bk.add(
+            product, count=check_user_input_count(request.data, product=product, bk=bk)
+        )
         return Response(get_serialized_data(basket=bk))
 
     def delete(self, request: Request) -> Response:
         bk = Basket(request)
-        bk.delete(get_object_or_404(Product, id=request.data.get('id', 0)), request.data.get('count', 0))
+        bk.delete(
+            get_object_or_404(Product, id=request.data.get("id", 0)),
+            request.data.get("count", 0),
+        )
         return Response(get_serialized_data(basket=bk))
-

@@ -23,19 +23,19 @@ class Basket:
             price = product.price
         if product_id not in self.cart:
             self.cart[product_id] = {
-                'count': count,
-                'price': str(price),
+                "count": count,
+                "price": str(price),
             }
         else:
-            self.cart[product_id]['count'] += count
+            self.cart[product_id]["count"] += count
         self.save()
 
     def delete(self, product: Product, count: int = 1):
         product_id = str(product.pk)
-        if count >= self.cart[product_id]['count']:
+        if count >= self.cart[product_id]["count"]:
             del self.cart[product_id]
         else:
-            self.cart[product_id]['count'] -= count
+            self.cart[product_id]["count"] -= count
 
         self.save()
 
@@ -47,15 +47,15 @@ class Basket:
         self.session.modified = True
 
     def get_total_price(self) -> Decimal:
-        return sum(data_many.get('count', 0) * Decimal(data_many.get('price', 0))
-                   for data_many in self.cart.values())
+        return sum(
+            data_many.get("count", 0) * Decimal(data_many.get("price", 0))
+            for data_many in self.cart.values()
+        )
 
     def get_count_product_in_basket(self, product_pk) -> int:
         product_id = str(product_pk)
-        return self.cart.get(product_id, {}).get('count', 0)
+        return self.cart.get(product_id, {}).get("count", 0)
 
     def get_price_product_in_basket(self, product_pk) -> Decimal:
         product_id = str(product_pk)
-        return Decimal(self.cart.get(product_id, {}).get('price', 0))
-
-
+        return Decimal(self.cart.get(product_id, {}).get("price", 0))

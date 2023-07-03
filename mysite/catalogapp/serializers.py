@@ -5,15 +5,18 @@ from .models import Category
 class SubCategorySerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
 
-
     class Meta:
         model = Category
-        fields = ('id', 'title', 'image',)
+        fields = (
+            "id",
+            "title",
+            "image",
+        )
 
     def get_image(self, instance: Category) -> dict[str]:
         try:
             image = instance.category_img.all()[0]
-            return {'src': image.src(), 'alt': image.alt()}
+            return {"src": image.src(), "alt": image.alt()}
         except IndexError:
             return {}
 
@@ -24,11 +27,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'title', 'image', 'subcategories')
+        fields = ("id", "title", "image", "subcategories")
 
     def get_image(self, instance: Category) -> dict[str]:
         try:
             image = instance.category_img.all()[0]
-            return {'src': image.src(), 'alt': image.alt()}
+            return {"src": image.src(), "alt": image.alt()}
         except IndexError:
             return {}
